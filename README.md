@@ -25,7 +25,11 @@ Each table has sample records to demonstrate:
 - Customer and employee details
 - Sales and service history
 
-- -- 1. List all cars with brand, model, year, and stock quantity
+- ## Questions and Answers
+
+
+```sql
+-- 1. List all cars with brand, model, year, and stock quantity
 SELECT
   brand,
   model,
@@ -124,7 +128,7 @@ JOIN
   car_inventory ci ON s.car_id = ci.car_id
 JOIN
   employee e ON s.employee_id = e.employee_id;
-
+```
 
 ## 📂 How to Use
 1. Import `car_showroom_project.sql` into your MySQL database.
