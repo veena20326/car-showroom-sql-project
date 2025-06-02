@@ -25,45 +25,105 @@ Each table has sample records to demonstrate:
 - Customer and employee details
 - Sales and service history
 
-## queries 
-#question1)  List all cars with brand, model, year, and stock quantity.
-	SELECT brand, model, year, stock_quantity FROM Car_Inventory;
-    
-#question2) Find all sales made in May 2025.
-SELECT * FROM Sales WHERE sale_date BETWEEN '2025-05-01' AND '2025-05-31';
+- -- 1. List all cars with brand, model, year, and stock quantity
+SELECT
+  brand,
+  model,
+  year,
+  stock_quantity
+FROM
+  car_inventory;
 
-#question3) Show customer names with the car model they purchased.
-SELECT c.name AS customer_name, ci.model AS car_model FROM Sales s
-JOIN Customer c ON s.customer_id = c.customer_id
-JOIN Car_Inventory ci ON s.car_id = ci.car_id;
+-- 2. Find all sales made in May 2025
+SELECT
+  *
+FROM
+  sales
+WHERE
+  sale_date BETWEEN '2025-05-01' AND '2025-05-31';
 
-#question4) Display total sales amount handled by each employee.
-SELECT e.name AS employee_name, SUM(s.amount) AS total_sales FROM Sales s
-JOIN Employee e ON s.employee_id = e.employee_id
-GROUP BY e.name;
+-- 3. Show customer names with the car model they purchased
+SELECT
+  c.name AS customer_name,
+  ci.model AS car_model
+FROM
+  sales s
+JOIN
+  customer c ON s.customer_id = c.customer_id
+JOIN
+  car_inventory ci ON s.car_id = ci.car_id;
 
-#question5. List customers who have availed service and their service cost.
-SELECT c.name AS customer_name, sr.service_details, sr.cost FROM Service_Record sr
-JOIN Customer c ON sr.customer_id = c.customer_id;
+-- 4. Display total sales amount handled by each employee
+SELECT
+  e.name AS employee_name,
+  SUM(s.amount) AS total_sales
+FROM
+  sales s
+JOIN
+  employee e ON s.employee_id = e.employee_id
+GROUP BY
+  e.name;
 
-#question6. Find the most expensive car available in stock.
-SELECT * FROM Car_Inventory ORDER BY price DESC LIMIT 1;
+-- 5. List customers who have availed service and their service cost
+SELECT
+  c.name AS customer_name,
+  sr.service_details,
+  sr.cost
+FROM
+  service_record sr
+JOIN
+  customer c ON sr.customer_id = c.customer_id;
 
-#question7. Count how many cars of each brand are available in stock.
-SELECT brand, SUM(stock_quantity) AS total_stock FROM Car_Inventory GROUP BY brand;
+-- 6. Find the most expensive car available in stock
+SELECT
+  *
+FROM
+  car_inventory
+ORDER BY
+  price DESC
+LIMIT 1;
 
-#question8. Update stock quantity after a sale (manual deduction for car_id = 1).
-UPDATE Car_Inventory SET stock_quantity = stock_quantity - 1 WHERE car_id = 1;
+-- 7. Count how many cars of each brand are available in stock
+SELECT
+  brand,
+  SUM(stock_quantity) AS total_stock
+FROM
+  car_inventory
+GROUP BY
+  brand;
 
-#question9. Delete a service record for a specific customer (e.g., customer_id = 101).
-DELETE FROM Service_Record WHERE customer_id = 101;
+-- 8. Update stock quantity after a sale (manual deduction for car_id = 1)
+UPDATE
+  car_inventory
+SET
+  stock_quantity = stock_quantity - 1
+WHERE
+  car_id = 1;
 
-#question10. Get a detailed sales report with customer, car, employee, and payment details.
-SELECT s.sale_id, c.name AS customer, ci.brand, ci.model, e.name AS employee,
-s.sale_date, s.payment_method, s.amount FROM Sales s
-JOIN Customer c ON s.customer_id = c.customer_id
-JOIN Car_Inventory ci ON s.car_id = ci.car_id
-JOIN Employee e ON s.employee_id = e.employee_id;
+-- 9. Delete a service record for a specific customer (e.g., customer_id = 101)
+DELETE FROM
+  service_record
+WHERE
+  customer_id = 101;
+
+-- 10. Get a detailed sales report with customer, car, employee, and payment details
+SELECT
+  s.sale_id,
+  c.name AS customer,
+  ci.brand,
+  ci.model,
+  e.name AS employee,
+  s.sale_date,
+  s.payment_method,
+  s.amount
+FROM
+  sales s
+JOIN
+  customer c ON s.customer_id = c.customer_id
+JOIN
+  car_inventory ci ON s.car_id = ci.car_id
+JOIN
+  employee e ON s.employee_id = e.employee_id;
 
 
 ## 📂 How to Use
